@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thông tin và Khảo sát</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        .form-section {
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            display: block;
+            margin: 20px 0;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .question {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+        }
+        .question-text {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .options {
+            margin-left: 20px;
+        }
+        .option {
+            margin-bottom: 8px;
+        }
+        .hidden {
+            display: none;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #e7f7e7;
+            border-radius: 4px;
+            text-align: center;
+        }
+        .group-header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        .checkbox-group label {
+            display: inline-block;
+            margin-right: 15px;
+            font-weight: normal;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Thông tin & Khảo sát</h1>
+        
+        <!-- User Information Form -->
+        <div id="userInfoForm" class="form-section">
+            <h2>Thông tin cá nhân</h2>
+            <div class="form-group">
+                <label for="fullName">Họ và tên:</label>
+                <input type="text" id="fullName" required>
+            </div>
+            <div class="form-group">
+                <label for="birthday">Ngày tháng năm sinh:</label>
+                <input type="date" id="birthday" required>
+            </div>
+            <div class="form-group">
+                <label for="idNumber">CCCD:</label>
+                <input type="text" id="idNumber" required>
+            </div>
+            <div class="form-group">
+                <label for="address">Địa chỉ thường trú:</label>
+                <textarea id="address" required></textarea>
+            </div>
+            <button id="submitInfo">Gửi thông tin</button>
+        </div>
+        
+        <!-- Quiz Section (Initially Hidden) -->
+        <div id="quizSection" class="hidden">
+            <h2>Bài khảo sát (40 câu hỏi)</h2>
+            <div id="questionsContainer"></div>
+            <button id="submitQuiz">Nộp bài</button>
+        </div>
+        
+        <!-- Results Section (Initially Hidden) -->
+        <div id="resultSection" class="hidden">
+            <h2>Kết quả bài làm</h2>
+            <div id="resultsContainer"></div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize quiz questions with specific content
+        const questions = [
+            // Group 1: True/False questions (10 questions)
+            {
+                id: 1,
+                text: "Câu 1: Việt Nam có 63 tỉnh thành.",
+                type: 'trueFalse',
+                options: ['Đúng', 'Sai'],
+                correctAnswer: 'Đúng'
+            },
+            {
+                id: 2,
+                text: "Câu 2: Hà Nội là thành phố có diện tích lớn nhất Việt Nam.",
+                type: 'trueFalse',
+                options: ['Đúng', 'Sai'],
+                correctAnswer: 'Sai'
+            },
+            {
+                id: 3,
+                text: "Câu 3: Sông Mekong chảy qua 6 quốc gia trước khi đổ ra biển.",
+                type: 'trueFalse',
+                options: ['Đúng', 'Sai'],
+                correctAnswer: 'Đúng'
+            },
+            {
+                id: 4,
+                text: "Câu 4: Ngôn ngữ chính thức của Liên Hợp Quốc có 5 ngôn ngữ.",
+                type: 'trueFalse',
+                options: ['Đúng', 'Sai'],
+                correctAnswer: 'Sai'
+            },
+            {
+                id: 5,
+                text: "Câu 5: Loài hổ có 9 phân loài còn tồn tại trên thế giới.",
+                type: 'trueFalse',
+                options: ['Đúng', 'Sai'],
+                correctAnswer: 'Sai'
+            },
+            {
+                id: 6,
+                text: "Câu 6: Trái đất mất khoảng 365.25 ngày để quay một vòng quanh mặt trời.",
+                type: 'trueFalse',
+                options: ['Đúng', 'Sai'],
+                correctAnswer: 'Đúng'
+            },
+            {
+                id: 7,
+                text: "Câu 7: Nước là chất dẫn điện tốt ở trạng thái tinh khiết.",
+                type: 'trueFalse',
+                options: ['Đúng', 'Sai'],
+                correctAnswer: 'Sai'
+            },
+            {
+                id: 8,
+                text: "Câu 8: Trái đất là hành tinh thứ 3 tính từ mặt trời.",
+                type: 'trueFalse',
+                options: ['Đúng', 'Sai'],
+                correctAnswer: 'Đúng'
+            },
+            {
+                id: 9,
+                text: "Câu 9: Con người có 32 đốt sống.",
+                type: 'trueFalse',
+                options: ['Đúng', 'Sai'],
+                correctAnswer: 'Sai'
+            },
+            {
+                id: 10,
+                text: "Câu 10: Vàng có ký hiệu hóa học là Au.",
+                type: 'trueFalse',
+                options: ['Đúng', 'Sai'],
+                correctAnswer: 'Đúng'
+            },
+
+            // Group 2: Multiple choice - single answer (10 questions)
+            {
+                id: 11,
+                text: "Câu 11: Thủ đô của Việt Nam là?",
+                type: 'singleChoice',
+                options: ['Hà Nội', 'Hồ Chí Minh', 'Đà Nẵng', 'Huế'],
+                correctAnswer: 'Hà Nội'
+            },
+            {
+                id: 12,
+                text: "Câu 12: Ngày Quốc khánh Việt Nam là ngày nào?",
+                type: 'singleChoice',
+                options: ['30/4', '1/5', '2/9', '19/5'],
+                correctAnswer: '2/9'
+            },
+            {
+                id: 13,
+                text: "Câu 13: Đâu là nguyên tố hóa học phổ biến nhất trong vỏ Trái Đất?",
+                type: 'singleChoice',
+                options: ['Oxy', 'Silicon', 'Nhôm', 'Sắt'],
+                correctAnswer: 'Oxy'
+            },
+            {
+                id: 14,
+                text: "Câu 14: Đâu là loại vitamin tan trong nước?",
+                type: 'singleChoice',
+                options: ['Vitamin A', 'Vitamin D', 'Vitamin C', 'Vitamin K'],
+                correctAnswer: 'Vitamin C'
+            },
+            {
+                id: 15,
+                text: "Câu 15: Bầu khí quyển của Trái Đất chứa bao nhiêu phần trăm nitơ?",
+                type: 'singleChoice',
+                options: ['21%', '78%', '0.03%', '0.97%'],
+                correctAnswer: '78%'
+            },
+            {
+                id: 16,
+                text: "Câu 16: Đâu là dãy núi cao nhất thế giới?",
+                type: 'singleChoice',
+                options: ['Dãy Alps', 'Dãy Andes', 'Dãy Himalaya', 'Dãy Rocky'],
+                correctAnswer: 'Dãy Himalaya'
+            },
+            {
+                id: 17,
+                text: "Câu 17: Ai là người đầu tiên đặt chân lên Mặt Trăng?",
+                type: 'singleChoice',
+                options: ['Yuri Gagarin', 'Neil Armstrong', 'Buzz Aldrin', 'Alan Shepard'],
+                correctAnswer: 'Neil Armstrong'
+            },
+            {
+                id: 18,
+                text: "Câu 18: Đơn vị đo áp suất là gì?",
+                type: 'singleChoice',
+                options: ['Watt', 'Pascal', 'Joule', 'Newton'],
+                correctAnswer: 'Pascal'
+            },
+            {
+                id: 19,
+                text: "Câu 19: Nước nào có diện tích lớn nhất thế giới?",
+                type: 'singleChoice',
+                options: ['Nga', 'Canada', 'Mỹ', 'Trung Quốc'],
+                correctAnswer: 'Nga'
+            },
+            {
+                id: 20,
+                text: "Câu 20: Đâu là ngôn ngữ lập trình phổ biến nhất hiện nay?",
+                type: 'singleChoice',
+                options: ['JavaScript', 'Python', 'Java', 'C++'],
+                correctAnswer: 'JavaScript'
+            },
+
+            // Group 3: Multiple choice - multiple answers (10 questions)
+            {
+                id: 21,
+                text: "Câu 21: Đâu là những quốc gia thuộc Đông Nam Á?",
+                type: 'multipleChoice',
+                options: ['Việt Nam', 'Trung Quốc', 'Thái Lan', 'Ấn Độ'],
+                correctAnswer: ['Việt Nam', 'Thái Lan']
+            },
+            {
+                id: 22,
+                text: "Câu 22: Đâu là các ngôn ngữ lập trình hướng đối tượng?",
+                type: 'multipleChoice',
+                options: ['Java', 'C', 'Python', 'HTML'],
+                correctAnswer: ['Java', 'Python']
+            },
+            {
+                id: 23,
+                text: "Câu 23: Các loại quả giàu vitamin C là?",
+                type: 'multipleChoice',
+                options: ['Cam', 'Chuối', 'Ổi', 'Khoai tây'],
+                correctAnswer: ['Cam', 'Ổi']
+            },
+            {
+                id: 24,
+                text: "Câu 24: Đâu là những hành tinh trong hệ Mặt Trời?",
+                type: 'multipleChoice',
+                options: ['Trái Đất', 'Mặt Trăng', 'Sao Hỏa', 'Sao Thiên Vương'],
+                correctAnswer: ['Trái Đất', 'Sao Hỏa', 'Sao Thiên Vương']
+            },
+            {
+                id: 25,
+                text: "Câu 25: Đâu là những kim loại quý?",
+                type: 'multipleChoice',
+                options: ['Vàng', 'Sắt', 'Bạc', 'Nhôm'],
+                correctAnswer: ['Vàng', 'Bạc']
+            },
+            {
+                id: 26,
+                text: "Câu 26: Đâu là những đại dương trên Trái Đất?",
+                type: 'multipleChoice',
+                options: ['Thái Bình Dương', 'Biển Đen', 'Đại Tây Dương', 'Biển Caspi'],
+                correctAnswer: ['Thái Bình Dương', 'Đại Tây Dương']
+            },
+            {
+                id: 27,
+                text: "Câu 27: Những nước nào thuộc Liên minh châu Âu (EU)?",
+                type: 'multipleChoice',
+                options: ['Đức', 'Anh', 'Pháp', 'Nga'],
+                correctAnswer: ['Đức', 'Pháp']
+            },
+            {
+                id: 28,
+                text: "Câu 28: Đâu là những ngôn ngữ sử dụng chữ viết Latin?",
+                type: 'multipleChoice',
+                options: ['Tiếng Việt', 'Tiếng Trung', 'Tiếng Anh', 'Tiếng Ả Rập'],
+                correctAnswer: ['Tiếng Việt', 'Tiếng Anh']
+            },
+            {
+                id: 29,
+                text: "Câu 29: Đâu là những động vật có vú?",
+                type: 'multipleChoice',
+                options: ['Cá voi', 'Cá mập', 'Dơi', 'Rắn'],
+                correctAnswer: ['Cá voi', 'Dơi']
+            },
+            {
+                id: 30,
+                text: "Câu 30: Đâu là những ngành khoa học tự nhiên?",
+                type: 'multipleChoice',
+                options: ['Vật lý', 'Triết học', 'Hóa học', 'Lịch sử'],
+                correctAnswer: ['Vật lý', 'Hóa học']
+            },
+
+            // Group 4: Essay questions (10 questions)
+            {
+                id: 31,
+                text: "Câu 31: Hãy nêu ý kiến của bạn về tầm quan trọng của giáo dục trong xã hội hiện đại.",
+                type: 'essay'
+            },
+            {
+                id: 32,
+                text: "Câu 32: Biến đổi khí hậu đang ảnh hưởng như thế nào đến đời sống con người? Hãy nêu một số giải pháp.",
+                type: 'essay'
+            },
+            {
+                id: 33,
+                text: "Câu 33: Bạn nghĩ gì về vai trò của công nghệ trong cuộc sống hàng ngày?",
+                type: 'essay'
+            },
+            {
+                id: 34,
+                text: "Câu 34: Hãy mô tả một ngày bình thường của bạn.",
+                type: 'essay'
+            },
+            {
+                id: 35,
+                text: "Câu 35: Nếu bạn có thể thay đổi một điều về thế giới, đó sẽ là gì? Tại sao?",
+                type: 'essay'
+            },
+            {
+                id: 36,
+                text: "Câu 36: Hãy chia sẻ quan điểm của bạn về việc bảo vệ môi trường.",
+                type: 'essay'
+            },
+            {
+                id: 37,
+                text: "Câu 37: Mạng xã hội đang ảnh hưởng như thế nào đến giới trẻ hiện nay?",
+                type: 'essay'
+            },
+            {
+                id: 38,
+                text: "Câu 38: Hãy nêu ý kiến của bạn về phát triển bền vững.",
+                type: 'essay'
+            },
+            {
+                id: 39,
+                text: "Câu 39: Làm thế nào để cân bằng giữa công việc và cuộc sống?",
+                type: 'essay'
+            },
+            {
+                id: 40,
+                text: "Câu 40: Văn hóa truyền thống có vai trò gì trong xã hội hiện đại?",
+                type: 'essay'
+            }
+        ];
+
+        // DOM Elements
+        const userInfoForm = document.getElementById('userInfoForm');
+        const quizSection = document.getElementById('quizSection');
+        const resultSection = document.getElementById('resultSection');
+        const questionsContainer = document.getElementById('questionsContainer');
+        const resultsContainer = document.getElementById('resultsContainer');
+        const submitInfoBtn = document.getElementById('submitInfo');
+        const submitQuizBtn = document.getElementById('submitQuiz');
+
+        // Handle User Information Submission
+        submitInfoBtn.addEventListener('click', function() {
+            const fullName = document.getElementById('fullName').value;
+            const birthday = document.getElementById('birthday').value;
+            const idNumber = document.getElementById('idNumber').value;
+            const address = document.getElementById('address').value;
+
+            // Validate input
+            if (!fullName || !birthday || !idNumber || !address) {
+                alert('Vui lòng điền đầy đủ thông tin.');
+                return;
+            }
+
+            // Hide user info form and show quiz
+            userInfoForm.classList.add('hidden');
+            quizSection.classList.remove('hidden');
+
+            // Generate quiz questions
+            renderQuestions();
+        });
+
+        // Render all quiz questions
+        function renderQuestions() {
+            // Clear existing content
+            questionsContainer.innerHTML = '';
+
+            // Group 1: True/False
+            questionsContainer.innerHTML += `<div class="group-header">Nhóm 1: Câu hỏi đúng/sai</div>`;
+            questions.slice(0, 10).forEach(question => {
+                const questionHTML = `
+                    <div class="question" id="question-${question.id}">
+                        <div class="question-text">${question.text}</div>
+                        <div class="options">
+                            ${question.options.map(option => `
+                                <div class="option">
+                                    <input type="radio" id="q${question.id}-${option}" name="q${question.id}" value="${option}">
+                                    <label for="q${question.id}-${option}">${option}</label>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+                questionsContainer.innerHTML += questionHTML;
+            });
+
+            // Group 2: Single choice
+            questionsContainer.innerHTML += `<div class="group-header">Nhóm 2: Câu hỏi chọn 1 trong 4 đáp án</div>`;
+            questions.slice(10, 20).forEach(question => {
+                const questionHTML = `
+                    <div class="question" id="question-${question.id}">
+                        <div class="question-text">${question.text}</div>
+                        <div class="options">
+                            ${question.options.map(option => `
+                                <div class="option">
+                                    <input type="radio" id="q${question.id}-${option}" name="q${question.id}" value="${option}">
+                                    <label for="q${question.id}-${option}">${option}</label>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+                questionsContainer.innerHTML += questionHTML;
+            });
+
+            // Group 3: Multiple choice
+            questionsContainer.innerHTML += `<div class="group-header">Nhóm 3: Câu hỏi chọn nhiều đáp án</div>`;
+            questions.slice(20, 30).forEach(question => {
+                const questionHTML = `
+                    <div class="question" id="question-${question.id}">
+                        <div class="question-text">${question.text}</div>
+                        <div class="options checkbox-group">
+                            ${question.options.map(option => `
+                                <div class="option">
+                                    <input type="checkbox" id="q${question.id}-${option}" name="q${question.id}" value="${option}">
+                                    <label for="q${question.id}-${option}">${option}</label>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+                questionsContainer.innerHTML += questionHTML;
+            });
+
+            // Group 4: Essay
+            questionsContainer.innerHTML += `<div class="group-header">Nhóm 4: Câu hỏi tự luận</div>`;
+            questions.slice(30, 40).forEach(question => {
+                const questionHTML = `
+                    <div class="question" id="question-${question.id}">
+                        <div class="question-text">${question.text}</div>
+                        <div class="options">
+                            <textarea id="q${question.id}" name="q${question.id}" placeholder="Nhập câu trả lời của bạn"></textarea>
+                        </div>
+                    </div>
+                `;
+                questionsContainer.innerHTML += questionHTML;
+            });
+        }
+
+        // Handle Quiz Submission
+        submitQuizBtn.addEventListener('click', function() {
+            // Hide quiz and show results
+            quizSection.classList.add('hidden');
+            resultSection.classList.remove('hidden');
+
+            // Calculate and display results
+            displayResults();
+        });
+
+        // Display quiz results
+        function displayResults() {
+            // Get user information
+            const fullName = document.getElementById('fullName').value;
+            const birthday = document.getElementById('birthday').value;
+            const idNumber = document.getElementById('idNumber').value;
+            const address = document.getElementById('address').value;
+
+            // Display user information
+            let resultHTML = `
+                <div class="result">
+                    <h3>Thông tin người làm bài</h3>
+                    <p><strong>Họ và tên:</strong> ${fullName}</p>
+                    <p><strong>Ngày sinh:</strong> ${birthday}</p>
+                    <p><strong>CCCD:</strong> ${idNumber}</p>
+                    <p><strong>Địa chỉ:</strong> ${address}</p>
+                </div>
+            `;
+
+            // Count correct answers
+            let correctCount = 0;
+            let totalAnswered = 0;
+
+            // Group 1: True/False
+            resultHTML += `<div class="group-header">Kết quả Nhóm 1: Câu hỏi đúng/sai</div>`;
+            questions.slice(0, 10).forEach(question => {
+                const selectedOption = document.querySelector(`input[name="q${question.id}"]:checked`)?.value;
+                const isCorrect = selectedOption === question.correctAnswer;
+                if (selectedOption) totalAnswered++;
+                if (isCorrect) correctCount++;
+
+                resultHTML += `
+                    <div class="question">
+                        <div class="question-text">${question.text}</div>
+                        <p>Câu trả lời của bạn: ${selectedOption || 'Chưa trả lời'}</p>
+                        <p>Đáp án đúng: ${question.correctAnswer}</p>
+                        <p style="color: ${isCorrect ? 'green' : 'red'}">
+                            ${isCorrect ? 'Chính xác' : 'Chưa chính xác'}
+                        </p>
+                    </div>
+                `;
+            });
+
+            // Group 2: Single choice
+            resultHTML += `<div class="group-header">Kết quả Nhóm 2: Câu hỏi chọn 1 trong 4 đáp án</div>`;
+            questions.slice(10, 20).forEach(question => {
+                const selectedOption = document.querySelector(`input[name="q${question.id}"]:checked`)?.value;
+                const isCorrect = selectedOption === question.correctAnswer;
+                if (selectedOption) totalAnswered++;
+                if (isCorrect) correctCount++;
+
+                resultHTML += `
+                    <div class="question">
+                        <div class="question-text">${question.text}</div>
+                        <p>Câu trả lời của bạn: ${selectedOption || 'Chưa trả lời'}</p>
+                        <p>Đáp án đúng: ${question.correctAnswer}</p>
+                        <p style="color: ${isCorrect ? 'green' : 'red'}">
+                            ${isCorrect ? 'Chính xác' : 'Chưa chính xác'}
+                        </p>
+                    </div>
+                `;
+            });
+
+            // Group 3: Multiple choice
+            resultHTML += `<div class="group-header">Kết quả Nhóm 3: Câu hỏi chọn nhiều đáp án</div>`;
+            questions.slice(20, 30).forEach(question => {
+                const selectedOptions = Array.from(document.querySelectorAll(`input[name="q${question.id}"]:checked`)).map(input => input.value);
+                const isCorrect = question.correctAnswer.every(answer => selectedOptions.includes(answer)) && 
+                                  selectedOptions.every(option => question.correctAnswer.includes(option));
+                
+                if (selectedOptions.length > 0) totalAnswered++;
+                if (isCorrect) correctCount++;
+
+                resultHTML += `
+                    <div class="question">
+                        <div class="question-text">${question.text}</div>
+                        <p>Câu trả lời của bạn: ${selectedOptions.length > 0 ? selectedOptions.join(', ') : 'Chưa trả lời'}</p>
+                        <p>Đáp án đúng: ${question.correctAnswer.join(', ')}</p>
+                        <p style="color: ${isCorrect ? 'green' : 'red'}">
+                            ${isCorrect ? 'Chính xác' : 'Chưa chính xác'}
+                        </p>
+                    </div>
+                `;
+            });
+
+            // Group 4: Essay
+            resultHTML += `<div class="group-header">Kết quả Nhóm 4: Câu hỏi tự luận</div>`;
+            questions.slice(30, 40).forEach(question => {
+                const answer = document.getElementById(`q${question.id}`).value;
+                if (answer.trim()) totalAnswered++;
+
+                resultHTML += `
+                    <div class="question">
+                        <div class="question-text">${question.text}</div>
+                        <p>Câu trả lời của bạn: ${answer || 'Chưa trả lời'}</p>
+                    </div>
+                `;
+            });
+
+            // Display summary
+            resultHTML += `
+                <div class="result">
+                    <h3>Tổng kết</h3>
+                    <p>Số câu đã trả lời: ${totalAnswered}/40</p>
+                    <p>Số câu đúng (Nhóm 1-3): ${correctCount}/30</p>
+                </div>
+            `;
+
+            // Update results container
+            resultsContainer.innerHTML = resultHTML;
+        }
+    </script>
+</body>
+</html>
