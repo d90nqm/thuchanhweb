@@ -12,7 +12,7 @@
         body {
             margin: 0;
             padding: 20px;
-            background-color: #f5f5f5;
+            background-color: #e6f7ff; /* Changed background color to light blue */
         }
         .container {
             max-width: 800px;
@@ -96,10 +96,23 @@
             min-height: 100px;
             resize: vertical;
         }
-        .checkbox-group label {
+        /* Modified to make options appear inline */
+        .checkbox-group label, .radio-group label {
             display: inline-block;
             margin-right: 15px;
             font-weight: normal;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+        }
+        .option input {
+            width: auto;
+            margin-right: 5px;
+        }
+        .option label {
+            margin: 0;
+            display: inline;
         }
     </style>
 </head>
@@ -149,268 +162,268 @@
             // Group 1: True/False questions (10 questions)
             {
                 id: 1,
-                text: "Câu 1: Việt Nam có 63 tỉnh thành.",
+                text: "Câu 1: Nước Việt Nam có chung đường biên giới với Lào, Campuchia và Trung Quốc.",
                 type: 'trueFalse',
                 options: ['Đúng', 'Sai'],
                 correctAnswer: 'Đúng'
             },
             {
                 id: 2,
-                text: "Câu 2: Hà Nội là thành phố có diện tích lớn nhất Việt Nam.",
+                text: "Câu 2: Bắc Kinh là thành phố đông dân nhất thế giới.",
                 type: 'trueFalse',
                 options: ['Đúng', 'Sai'],
                 correctAnswer: 'Sai'
             },
             {
                 id: 3,
-                text: "Câu 3: Sông Mekong chảy qua 6 quốc gia trước khi đổ ra biển.",
+                text: "Câu 3: Trái đất quay quanh mặt trời theo hình elip.",
                 type: 'trueFalse',
                 options: ['Đúng', 'Sai'],
                 correctAnswer: 'Đúng'
             },
             {
                 id: 4,
-                text: "Câu 4: Ngôn ngữ chính thức của Liên Hợp Quốc có 5 ngôn ngữ.",
-                type: 'trueFalse',
-                options: ['Đúng', 'Sai'],
-                correctAnswer: 'Sai'
-            },
-            {
-                id: 5,
-                text: "Câu 5: Loài hổ có 9 phân loài còn tồn tại trên thế giới.",
-                type: 'trueFalse',
-                options: ['Đúng', 'Sai'],
-                correctAnswer: 'Sai'
-            },
-            {
-                id: 6,
-                text: "Câu 6: Trái đất mất khoảng 365.25 ngày để quay một vòng quanh mặt trời.",
+                text: "Câu 4: Cơ thể con người có 206 xương.",
                 type: 'trueFalse',
                 options: ['Đúng', 'Sai'],
                 correctAnswer: 'Đúng'
             },
             {
+                id: 5,
+                text: "Câu 5: Hoa sen là quốc hoa của Việt Nam.",
+                type: 'trueFalse',
+                options: ['Đúng', 'Sai'],
+                correctAnswer: 'Đúng'
+            },
+            {
+                id: 6,
+                text: "Câu 6: Nước đá nổi trên mặt nước vì mật độ của nó lớn hơn mật độ nước.",
+                type: 'trueFalse',
+                options: ['Đúng', 'Sai'],
+                correctAnswer: 'Sai'
+            },
+            {
                 id: 7,
-                text: "Câu 7: Nước là chất dẫn điện tốt ở trạng thái tinh khiết.",
+                text: "Câu 7: HTML là một ngôn ngữ lập trình.",
                 type: 'trueFalse',
                 options: ['Đúng', 'Sai'],
                 correctAnswer: 'Sai'
             },
             {
                 id: 8,
-                text: "Câu 8: Trái đất là hành tinh thứ 3 tính từ mặt trời.",
+                text: "Câu 8: Quốc kỳ của Nhật Bản có hình mặt trời mọc.",
                 type: 'trueFalse',
                 options: ['Đúng', 'Sai'],
                 correctAnswer: 'Đúng'
             },
             {
                 id: 9,
-                text: "Câu 9: Con người có 32 đốt sống.",
-                type: 'trueFalse',
-                options: ['Đúng', 'Sai'],
-                correctAnswer: 'Sai'
-            },
-            {
-                id: 10,
-                text: "Câu 10: Vàng có ký hiệu hóa học là Au.",
+                text: "Câu 9: Loài người và tinh tinh có khoảng 98% DNA giống nhau.",
                 type: 'trueFalse',
                 options: ['Đúng', 'Sai'],
                 correctAnswer: 'Đúng'
+            },
+            {
+                id: 10,
+                text: "Câu 10: Phần mềm mã nguồn mở là phần mềm miễn phí.",
+                type: 'trueFalse',
+                options: ['Đúng', 'Sai'],
+                correctAnswer: 'Sai'
             },
 
             // Group 2: Multiple choice - single answer (10 questions)
             {
                 id: 11,
-                text: "Câu 11: Thủ đô của Việt Nam là?",
+                text: "Câu 11: Quốc gia nào có diện tích lớn nhất ở Đông Nam Á?",
                 type: 'singleChoice',
-                options: ['Hà Nội', 'Hồ Chí Minh', 'Đà Nẵng', 'Huế'],
-                correctAnswer: 'Hà Nội'
+                options: ['Indonesia', 'Việt Nam', 'Thái Lan', 'Malaysia'],
+                correctAnswer: 'Indonesia'
             },
             {
                 id: 12,
-                text: "Câu 12: Ngày Quốc khánh Việt Nam là ngày nào?",
+                text: "Câu 12: Ngày Quốc tế Lao động là ngày nào?",
                 type: 'singleChoice',
-                options: ['30/4', '1/5', '2/9', '19/5'],
-                correctAnswer: '2/9'
+                options: ['1/1', '1/5', '8/3', '2/9'],
+                correctAnswer: '1/5'
             },
             {
                 id: 13,
-                text: "Câu 13: Đâu là nguyên tố hóa học phổ biến nhất trong vỏ Trái Đất?",
+                text: "Câu 13: Đâu là loại vitamin giúp tăng cường hệ miễn dịch?",
                 type: 'singleChoice',
-                options: ['Oxy', 'Silicon', 'Nhôm', 'Sắt'],
-                correctAnswer: 'Oxy'
-            },
-            {
-                id: 14,
-                text: "Câu 14: Đâu là loại vitamin tan trong nước?",
-                type: 'singleChoice',
-                options: ['Vitamin A', 'Vitamin D', 'Vitamin C', 'Vitamin K'],
+                options: ['Vitamin A', 'Vitamin B', 'Vitamin C', 'Vitamin D'],
                 correctAnswer: 'Vitamin C'
             },
             {
-                id: 15,
-                text: "Câu 15: Bầu khí quyển của Trái Đất chứa bao nhiêu phần trăm nitơ?",
+                id: 14,
+                text: "Câu 14: Ai là người đã phát minh ra bóng đèn điện?",
                 type: 'singleChoice',
-                options: ['21%', '78%', '0.03%', '0.97%'],
-                correctAnswer: '78%'
+                options: ['Thomas Edison', 'Nikola Tesla', 'Albert Einstein', 'Isaac Newton'],
+                correctAnswer: 'Thomas Edison'
+            },
+            {
+                id: 15,
+                text: "Câu 15: Ngôn ngữ nào được sử dụng phổ biến nhất trên thế giới?",
+                type: 'singleChoice',
+                options: ['Tiếng Anh', 'Tiếng Trung', 'Tiếng Tây Ban Nha', 'Tiếng Ả Rập'],
+                correctAnswer: 'Tiếng Trung'
             },
             {
                 id: 16,
-                text: "Câu 16: Đâu là dãy núi cao nhất thế giới?",
+                text: "Câu 16: Con sông nào dài nhất thế giới?",
                 type: 'singleChoice',
-                options: ['Dãy Alps', 'Dãy Andes', 'Dãy Himalaya', 'Dãy Rocky'],
-                correctAnswer: 'Dãy Himalaya'
+                options: ['Amazon', 'Nile', 'Mississippi', 'Yangtze'],
+                correctAnswer: 'Nile'
             },
             {
                 id: 17,
-                text: "Câu 17: Ai là người đầu tiên đặt chân lên Mặt Trăng?",
+                text: "Câu 17: Đâu là cố đô đầu tiên của Việt Nam?",
                 type: 'singleChoice',
-                options: ['Yuri Gagarin', 'Neil Armstrong', 'Buzz Aldrin', 'Alan Shepard'],
-                correctAnswer: 'Neil Armstrong'
+                options: ['Hoa Lư', 'Thăng Long', 'Huế', 'Phú Xuân'],
+                correctAnswer: 'Hoa Lư'
             },
             {
                 id: 18,
-                text: "Câu 18: Đơn vị đo áp suất là gì?",
+                text: "Câu 18: Tác giả của tác phẩm 'Truyện Kiều' là ai?",
                 type: 'singleChoice',
-                options: ['Watt', 'Pascal', 'Joule', 'Newton'],
-                correctAnswer: 'Pascal'
+                options: ['Nguyễn Du', 'Hồ Xuân Hương', 'Nguyễn Trãi', 'Nguyễn Đình Chiểu'],
+                correctAnswer: 'Nguyễn Du'
             },
             {
                 id: 19,
-                text: "Câu 19: Nước nào có diện tích lớn nhất thế giới?",
+                text: "Câu 19: Đồng tiền nào được sử dụng ở Nhật Bản?",
                 type: 'singleChoice',
-                options: ['Nga', 'Canada', 'Mỹ', 'Trung Quốc'],
-                correctAnswer: 'Nga'
+                options: ['Yên', 'Won', 'Yuan', 'Ringgit'],
+                correctAnswer: 'Yên'
             },
             {
                 id: 20,
-                text: "Câu 20: Đâu là ngôn ngữ lập trình phổ biến nhất hiện nay?",
+                text: "Câu 20: Hệ điều hành nào được sử dụng phổ biến nhất trên điện thoại thông minh?",
                 type: 'singleChoice',
-                options: ['JavaScript', 'Python', 'Java', 'C++'],
-                correctAnswer: 'JavaScript'
+                options: ['Android', 'iOS', 'Windows Phone', 'BlackBerry OS'],
+                correctAnswer: 'Android'
             },
 
             // Group 3: Multiple choice - multiple answers (10 questions)
             {
                 id: 21,
-                text: "Câu 21: Đâu là những quốc gia thuộc Đông Nam Á?",
+                text: "Câu 21: Đâu là những ngôn ngữ lập trình phổ biến?",
                 type: 'multipleChoice',
-                options: ['Việt Nam', 'Trung Quốc', 'Thái Lan', 'Ấn Độ'],
-                correctAnswer: ['Việt Nam', 'Thái Lan']
+                options: ['Python', 'Microsoft Word', 'Java', 'Adobe Photoshop'],
+                correctAnswer: ['Python', 'Java']
             },
             {
                 id: 22,
-                text: "Câu 22: Đâu là các ngôn ngữ lập trình hướng đối tượng?",
+                text: "Câu 22: Đâu là các loại trình duyệt web?",
                 type: 'multipleChoice',
-                options: ['Java', 'C', 'Python', 'HTML'],
-                correctAnswer: ['Java', 'Python']
+                options: ['Firefox', 'Powerpoint', 'Chrome', 'Excel'],
+                correctAnswer: ['Firefox', 'Chrome']
             },
             {
                 id: 23,
-                text: "Câu 23: Các loại quả giàu vitamin C là?",
+                text: "Câu 23: Các quốc gia nào thuộc Bắc Mỹ?",
                 type: 'multipleChoice',
-                options: ['Cam', 'Chuối', 'Ổi', 'Khoai tây'],
-                correctAnswer: ['Cam', 'Ổi']
+                options: ['Canada', 'Brazil', 'Mexico', 'Argentina'],
+                correctAnswer: ['Canada', 'Mexico']
             },
             {
                 id: 24,
-                text: "Câu 24: Đâu là những hành tinh trong hệ Mặt Trời?",
+                text: "Câu 24: Đâu là những thành phố của Việt Nam?",
                 type: 'multipleChoice',
-                options: ['Trái Đất', 'Mặt Trăng', 'Sao Hỏa', 'Sao Thiên Vương'],
-                correctAnswer: ['Trái Đất', 'Sao Hỏa', 'Sao Thiên Vương']
+                options: ['Hà Nội', 'Bangkok', 'Đà Nẵng', 'Manila'],
+                correctAnswer: ['Hà Nội', 'Đà Nẵng']
             },
             {
                 id: 25,
-                text: "Câu 25: Đâu là những kim loại quý?",
+                text: "Câu 25: Đâu là những loại thể thao đồng đội?",
                 type: 'multipleChoice',
-                options: ['Vàng', 'Sắt', 'Bạc', 'Nhôm'],
-                correctAnswer: ['Vàng', 'Bạc']
+                options: ['Bóng đá', 'Cờ vua', 'Bóng chuyền', 'Golf'],
+                correctAnswer: ['Bóng đá', 'Bóng chuyền']
             },
             {
                 id: 26,
-                text: "Câu 26: Đâu là những đại dương trên Trái Đất?",
+                text: "Câu 26: Đâu là những hãng xe ô tô của Nhật Bản?",
                 type: 'multipleChoice',
-                options: ['Thái Bình Dương', 'Biển Đen', 'Đại Tây Dương', 'Biển Caspi'],
-                correctAnswer: ['Thái Bình Dương', 'Đại Tây Dương']
+                options: ['Toyota', 'BMW', 'Honda', 'Mercedes'],
+                correctAnswer: ['Toyota', 'Honda']
             },
             {
                 id: 27,
-                text: "Câu 27: Những nước nào thuộc Liên minh châu Âu (EU)?",
+                text: "Câu 27: Những chất nào là vitamin tan trong nước?",
                 type: 'multipleChoice',
-                options: ['Đức', 'Anh', 'Pháp', 'Nga'],
-                correctAnswer: ['Đức', 'Pháp']
+                options: ['Vitamin C', 'Vitamin E', 'Vitamin B', 'Vitamin K'],
+                correctAnswer: ['Vitamin C', 'Vitamin B']
             },
             {
                 id: 28,
-                text: "Câu 28: Đâu là những ngôn ngữ sử dụng chữ viết Latin?",
+                text: "Câu 28: Đâu là những tác phẩm của nhà văn Nam Cao?",
                 type: 'multipleChoice',
-                options: ['Tiếng Việt', 'Tiếng Trung', 'Tiếng Anh', 'Tiếng Ả Rập'],
-                correctAnswer: ['Tiếng Việt', 'Tiếng Anh']
+                options: ['Lão Hạc', 'Truyện Kiều', 'Chí Phèo', 'Tắt Đèn'],
+                correctAnswer: ['Lão Hạc', 'Chí Phèo']
             },
             {
                 id: 29,
-                text: "Câu 29: Đâu là những động vật có vú?",
+                text: "Câu 29: Đâu là những loại hoa phổ biến ở Việt Nam?",
                 type: 'multipleChoice',
-                options: ['Cá voi', 'Cá mập', 'Dơi', 'Rắn'],
-                correctAnswer: ['Cá voi', 'Dơi']
+                options: ['Hoa sen', 'Hoa anh đào', 'Hoa đào', 'Hoa tulip'],
+                correctAnswer: ['Hoa sen', 'Hoa đào']
             },
             {
                 id: 30,
-                text: "Câu 30: Đâu là những ngành khoa học tự nhiên?",
+                text: "Câu 30: Đâu là những món ăn truyền thống của Việt Nam?",
                 type: 'multipleChoice',
-                options: ['Vật lý', 'Triết học', 'Hóa học', 'Lịch sử'],
-                correctAnswer: ['Vật lý', 'Hóa học']
+                options: ['Phở', 'Sushi', 'Bánh mì', 'Pizza'],
+                correctAnswer: ['Phở', 'Bánh mì']
             },
 
             // Group 4: Essay questions (10 questions)
             {
                 id: 31,
-                text: "Câu 31: Hãy nêu ý kiến của bạn về tầm quan trọng của giáo dục trong xã hội hiện đại.",
+                text: "Câu 31: Theo bạn, việc học trực tuyến có ưu điểm và nhược điểm gì so với học truyền thống?",
                 type: 'essay'
             },
             {
                 id: 32,
-                text: "Câu 32: Biến đổi khí hậu đang ảnh hưởng như thế nào đến đời sống con người? Hãy nêu một số giải pháp.",
+                text: "Câu 32: Bạn nghĩ gì về tác động của mạng xã hội đối với giới trẻ hiện nay?",
                 type: 'essay'
             },
             {
                 id: 33,
-                text: "Câu 33: Bạn nghĩ gì về vai trò của công nghệ trong cuộc sống hàng ngày?",
+                text: "Câu 33: Theo bạn, làm thế nào để bảo vệ môi trường hiệu quả?",
                 type: 'essay'
             },
             {
                 id: 34,
-                text: "Câu 34: Hãy mô tả một ngày bình thường của bạn.",
+                text: "Câu 34: Hãy mô tả kỳ nghỉ hoặc chuyến đi đáng nhớ nhất của bạn.",
                 type: 'essay'
             },
             {
                 id: 35,
-                text: "Câu 35: Nếu bạn có thể thay đổi một điều về thế giới, đó sẽ là gì? Tại sao?",
+                text: "Câu 35: Nếu bạn có thể phát minh một thứ để giúp ích cho xã hội, đó sẽ là gì? Tại sao?",
                 type: 'essay'
             },
             {
                 id: 36,
-                text: "Câu 36: Hãy chia sẻ quan điểm của bạn về việc bảo vệ môi trường.",
+                text: "Câu 36: Theo bạn, đâu là những kỹ năng quan trọng nhất để thành công trong thế kỷ 21?",
                 type: 'essay'
             },
             {
                 id: 37,
-                text: "Câu 37: Mạng xã hội đang ảnh hưởng như thế nào đến giới trẻ hiện nay?",
+                text: "Câu 37: Hãy chia sẻ về một người mà bạn ngưỡng mộ và lý do tại sao.",
                 type: 'essay'
             },
             {
                 id: 38,
-                text: "Câu 38: Hãy nêu ý kiến của bạn về phát triển bền vững.",
+                text: "Câu 38: Theo bạn, làm thế nào để cân bằng giữa công việc/học tập và cuộc sống cá nhân?",
                 type: 'essay'
             },
             {
                 id: 39,
-                text: "Câu 39: Làm thế nào để cân bằng giữa công việc và cuộc sống?",
+                text: "Câu 39: Bạn nghĩ gì về xu hướng sử dụng trí tuệ nhân tạo trong đời sống hiện nay?",
                 type: 'essay'
             },
             {
                 id: 40,
-                text: "Câu 40: Văn hóa truyền thống có vai trò gì trong xã hội hiện đại?",
+                text: "Câu 40: Nếu bạn là người lãnh đạo đất nước, bạn sẽ ưu tiên giải quyết vấn đề gì đầu tiên? Tại sao?",
                 type: 'essay'
             }
         ];
@@ -456,7 +469,7 @@
                 const questionHTML = `
                     <div class="question" id="question-${question.id}">
                         <div class="question-text">${question.text}</div>
-                        <div class="options">
+                        <div class="options radio-group">
                             ${question.options.map(option => `
                                 <div class="option">
                                     <input type="radio" id="q${question.id}-${option}" name="q${question.id}" value="${option}">
@@ -475,7 +488,7 @@
                 const questionHTML = `
                     <div class="question" id="question-${question.id}">
                         <div class="question-text">${question.text}</div>
-                        <div class="options">
+                        <div class="options radio-group">
                             ${question.options.map(option => `
                                 <div class="option">
                                     <input type="radio" id="q${question.id}-${option}" name="q${question.id}" value="${option}">
